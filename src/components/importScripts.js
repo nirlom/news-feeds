@@ -5,7 +5,7 @@ import $ from 'jquery';
 class ImportScripts extends Component {
   componentDidMount() {
     window.$ = $;
-    loadScript('/js/main.js?v=1');
+    loadScript('/js/main.js?v=2');
   }
 
   render() {

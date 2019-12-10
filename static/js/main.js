@@ -8,14 +8,8 @@ $(document).ready(function() {
   let $card;
   let $cardReject;
   let $cardLike;
-  if (cardsCounter < numOfCards) {
-    $('#div-thankyou').hide();
-  }
+
   function pullChange() {
-    if (cardsCounter === numOfCards) {
-      $('#div-thankyou').show();
-      return false;
-    }
     animating = true;
     deg = pullDeltaX / 10;
     $card.css('transform', `translateX(${pullDeltaX}px) rotate(${deg}deg)`);
@@ -28,10 +22,6 @@ $(document).ready(function() {
   }
 
   function release() {
-    if (cardsCounter === numOfCards) {
-      $('#div-thankyou').show();
-      return false;
-    }
     if (pullDeltaX >= decisionVal) {
       $card.addClass('to-right');
     } else if (pullDeltaX <= -decisionVal) {
@@ -46,7 +36,6 @@ $(document).ready(function() {
         cardsCounter += 1;
         if (cardsCounter === numOfCards) {
           // cardsCounter = 0;
-          $('#div-thankyou').show();
           $('.demo__card').removeClass('below');
         }
         localStorage.setItem('cardsCounter', cardsCounter);
