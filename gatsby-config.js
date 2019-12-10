@@ -50,18 +50,19 @@ module.exports = {
         // develop: true, // Enable while using `gatsby develop`
         // tailwind: true, // Enable tailwindcss support
         whitelist: [
-          '.bulb-dark .bulb',
-          '.bulb-dark',
-          '.demo__card__dark__mode',
-          '.demo__card.reset',
-          '.demo__card.reset .demo__card__choice',
-          '.demo__card.inactive',
-          '.demo__card.to-left',
-          '.demo__card.to-right',
-          '.demo__card.below',
-          '.demo__card__top',
-          '.demo__tip',
-          '.container'
+          'bulb-dark .bulb',
+          'bulb-dark',
+          'demo__card__dark__mode',
+          'demo__card.reset',
+          'demo__card.reset',
+          'demo__card__choice',
+          'demo__card.inactive',
+          'demo__card.to-left',
+          'demo__card.to-right',
+          'demo__card.below',
+          'demo__card__top',
+          'demo__tip',
+          'container'
         ] // Don't remove this selector
         // ignore: ['/ignored.css', 'prismjs/', 'docsearch.js/'], // Ignore files/folders
         // purgeOnly : ['components/', '/main.css', 'bootstrap/'], // Purge only these files/folders
