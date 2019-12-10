@@ -9,15 +9,12 @@ const NewsCards = ({
   }
 }) => {
   const [unreadArticles, setUnreadArticles] = useState(() => {
-    const readCounter = window.localStorage.getItem('cardsCounter') || 0;
-    return _.slice(articles, 0, totalCount - readCounter);
+    if (typeof window !== 'undefined' && window) {
+      window.numOfCards = totalCount;
+      const readCounter = window.localStorage.getItem('cardsCounter') || 0;
+      return _.slice(articles, 0, totalCount - readCounter);
+    }
   });
-
-  const didUpdate = () => {
-    window.numOfCards = totalCount;
-  };
-
-  useEffect(didUpdate);
 
   const handleOnCardClick = url => {
     window.location.href = url;
