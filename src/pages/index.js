@@ -51,7 +51,7 @@ const NewsCards = ({
       <section className="demo">
         <main className="demo__content">
           <div className="demo__card-cont">
-            {unreadArticles.length > 0 ? (
+            {unreadArticles && unreadArticles.length > 0 ? (
               _.map(unreadArticles, article => (
                 <div
                   onClick={() => handleOnCardClick(article.node.url)}
