@@ -35,6 +35,14 @@ module.exports = {
         head: true
       }
     },
+    // {
+    //   resolve: 'gatsby-source-rest-api',
+    //   options: {
+    //     endpoints: [
+    //       'https://newsapi.org/v2/top-headlines?country=in&apiKey=fde476b63c444d7683985cb9d9e381a0'
+    //     ]
+    //   }
+    // },
     {
       resolve: `gatsby-plugin-purgecss`,
       options: {

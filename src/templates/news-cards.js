@@ -8,15 +8,15 @@ const NewsCards = ({
     allArticle: { totalCount, edges: articles }
   }
 }) => {
-  const [unreadArticles, setUnreadArticles] = useState(() => {
-    const readCounter = window.localStorage.getItem('cardsCounter') || 0;
-    return _.slice(articles, 0, totalCount - readCounter);
-  });
-
+  let unreadArticles = [];
+  let readCounter = 0;
   const didUpdate = () => {
+    readCounter = parseInt(window.localStorage.getItem('cardsCounter')) || 0;
     window.numOfCards = totalCount;
   };
-
+  if (readCounter > 0) {
+    unreadArticles = _.slice(articles, 0, totalCount - readCounter);
+  }
   useEffect(didUpdate);
 
   const handleOnCardClick = url => {
@@ -56,24 +56,24 @@ const NewsCards = ({
           <div className="demo__card-cont">
             {_.map(unreadArticles, article => (
               <div
-                onClick={() => handleOnCardClick(article.node.url)}
+                onClick={() => handleOnCardClick(article.url)}
                 className="demo__card"
               >
                 <div>
                   <div className="demo__card__img">
                     <img
                       className="image"
-                      src={article.node.urlToImage}
-                      alt={article.node.title}
+                      src={article.urlToImage}
+                      alt={article.title}
                     />
                   </div>
                   <div className="demo__card__news_text">
-                    <h5 className="demo__card__name">{article.node.title}</h5>
-                    <span className="author">{`${article.node.author} / ${article.node.publishedAt}`}</span>
-                    <p className="demo__card__we">{article.node.description}</p>
+                    <h5 className="demo__card__name">{article.title}</h5>
+                    <span className="author">{`${article.author} / ${article.publishedAt}`}</span>
+                    <p className="demo__card__we">{article.description}</p>
                     <div className="readmore">
-                      <a href={article.node.url}>
-                        Read More @ {article.node.source.name}
+                      <a href={article.url}>
+                        Read More @ {article.source.name}
                       </a>
                     </div>
                   </div>
@@ -83,14 +83,6 @@ const NewsCards = ({
                 </div>
               </div>
             ))}
-            <div id="div-thankyou" className="demo__card">
-              <div className="demo__card__news_text">
-                <h5 className="demo__card__name">
-                  Thank you so much for reading all the news
-                </h5>
-                <p className="demo__card__we">See you tomorrow</p>
-              </div>
-            </div>
           </div>
         </main>
       </section>
@@ -101,22 +93,18 @@ const NewsCards = ({
 export default NewsCards;
 
 export const pageQuery = graphql`
-  query {
+  query Articles {
     allArticle {
       totalCount
       edges {
         node {
-          source {
-            name
-            id
-          }
           author
           id
           title
           description
           url
           urlToImage
-          publishedAt(formatString: "DD, MMM YYYY")
+          publishedAt
         }
       }
     }

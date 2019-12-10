@@ -1,13 +1,13 @@
 {
-  "name": "gatsby-starter",
+  "name": "nirlom-news",
   "version": "1.0.0",
-  "description": "Nirlom Gatsby Starter",
+  "description": "Nirlom News Feeds",
   "scripts": {
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "build": "gatsby build",
-    "start": "gatsby develop",
-    "serve": "gatsby serve",
+    "start": "gatsby develop -H 0.0.0.0",
+    "serve": "gatsby serve -H 0.0.0.0",
     "clean": "gatsby clean"
   },
   "keywords": [],
@@ -15,7 +15,7 @@
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nirlom/gatsby-starter"
+    "url": "https://github.com/nirlom/news-feeds"
   },
   "devDependencies": {
     "babel-eslint": "^9.0.0",
@@ -32,6 +32,7 @@
     "prettier": "^1.16.4"
   },
   "dependencies": {
+    "axios": "^0.19.0",
     "dotenv": "^8.2.0",
     "gatsby": "^2.18.7",
     "gatsby-image": "^2.2.34",
@@ -44,7 +45,10 @@
     "gatsby-plugin-sharp": "^2.3.5",
     "gatsby-plugin-sitemap": "^2.2.22",
     "gatsby-source-filesystem": "^2.1.40",
+    "gatsby-source-rest-api": "^0.2.1",
     "gatsby-transformer-sharp": "^2.3.7",
+    "jquery": "^3.4.1",
+    "lodash": "^4.17.15",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
