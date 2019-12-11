@@ -8,54 +8,104 @@ const NewsCards = ({
     allArticle: { totalCount, edges: articles }
   }
 }) => {
-  const [unreadArticles, setUnreadArticles] = useState(() => {
+  const [startX, setStartX] = useState(0);
+  const [pullDeltaX, setPullDeltaX] = useState(0);
+  const [readCounter, setReadCounter] = useState(() => {
     if (typeof window !== 'undefined' && window) {
       window.numOfCards = totalCount;
-      const readCounter = window.localStorage.getItem('cardsCounter') || 0;
-      return _.slice(articles, 0, totalCount - readCounter);
+      const todaysDate = new Date().getDate();
+      if (window.localStorage.getItem('publishDate') < todaysDate) {
+        window.localStorage.setItem('publishDate', todaysDate);
+        window.localStorage.setItem('cardsCounter', 0);
+      }
+
+      return window.localStorage.getItem('cardsCounter') || 0;
     }
   });
-
   const handleOnCardClick = url => {
     window.location.href = url;
   };
 
-  const handleOnCardShareClick = () => {
-    if (navigator.share) {
-      navigator
-        .share({
-          title: 'WebShare API Demo',
-          url: 'https://codepen.io/ayoisaiah/pen/YbNazJ'
-        })
-        .then(() => {
-          console.log('Thanks for sharing!');
-        })
-        .catch(console.error);
-    } else {
-      console.log('eLSE Thanks for sharing!');
-    }
+  const handleOnCardNextClick = () => {
+    setReadCounter(prevReadCounter => {
+      const nextReadCounter =
+        prevReadCounter + 1 > totalCount ? totalCount : prevReadCounter + 1;
+      window.localStorage.setItem('cardsCounter', nextReadCounter);
+      return nextReadCounter;
+    });
+  };
+  const handleOnCardPrevClick = () => {
+    setReadCounter(prevReadCounter => {
+      const nextReadCounter = prevReadCounter - 1 < 0 ? 0 : prevReadCounter - 1;
+      window.localStorage.setItem('cardsCounter', nextReadCounter);
+      return nextReadCounter;
+    });
+    // if (navigator.share) {
+    //   navigator
+    //     .share({
+    //       title: 'WebShare API Demo',
+    //       url: 'https://codepen.io/ayoisaiah/pen/YbNazJ'
+    //     })
+    //     .then(() => {
+    //       console.log('Thanks for sharing!');
+    //     })
+    //     .catch(console.error);
+    // } else {
+    //   console.log('eLSE Thanks for sharing!');
+    // }
   };
 
+  const handleOnCardMove = e => {
+    const x = e.pageX || e.nativeEvent.touches[0].pageX;
+    setPullDeltaX(x - startX);
+    return false;
+  };
+
+  const handleOnCardMoveEnd = e => {
+    if (!pullDeltaX) return false;
+    setReadCounter(prevReadCounter => {
+      const nextReadCounter = parseInt(prevReadCounter) + 1;
+      window.localStorage.setItem('cardsCounter', nextReadCounter);
+      return nextReadCounter;
+    });
+    setPullDeltaX(0);
+  };
+
+  const handleOnCardMoveStart = e => {
+    setStartX(e.pageX || e.nativeEvent.touches[0].pageX);
+  };
   return (
     <Layout>
       <header>
         <div className="row">
+          <div className="icon">
+            {/* <div className="share" onClick={handleOnCardNextClick} /> */}
+            <div className="share" onClick={handleOnCardPrevClick} />
+          </div>
           <div className="icon bulb-light">
             <div className="bulb" />
-          </div>
-          <div className="icon">
-            <div className="share" onClick={handleOnCardShareClick} />
           </div>
         </div>
       </header>
       <section className="demo">
         <main className="demo__content">
           <div className="demo__card-cont">
-            {unreadArticles && unreadArticles.length > 0 ? (
-              _.map(unreadArticles, article => (
+            {articles.length > readCounter ? (
+              _.map(articles, article => (
                 <div
-                  onClick={() => handleOnCardClick(article.node.url)}
-                  className="demo__card"
+                  onTouchMove={handleOnCardMove}
+                  onMouseMove={handleOnCardMove}
+                  onTouchStart={handleOnCardMoveStart}
+                  onMouseUp={handleOnCardMoveStart}
+                  onMouseDown={handleOnCardMoveEnd}
+                  onTouchEnd={handleOnCardMoveEnd}
+                  key={article.node.id}
+                  id={`div-${article.node.id}`}
+                  className={`demo__card ${
+                    article.node.id >= articles.length - readCounter
+                      ? 'below'
+                      : ''
+                  }`}
                 >
                   <div>
                     <div className="demo__card__img">

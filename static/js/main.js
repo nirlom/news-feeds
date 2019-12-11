@@ -38,7 +38,6 @@ $(document).ready(function() {
           // cardsCounter = 0;
           $('.demo__card').removeClass('below');
         }
-        localStorage.setItem('cardsCounter', cardsCounter);
       }, 300);
     }
 

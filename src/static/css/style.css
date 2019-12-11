@@ -20,7 +20,7 @@ header {
 	width: 25px;
 }
 .share{
-	background-image: url("../images/share.svg");	
+	background-image: url("../images/left-arrow.svg");	
 }
 .bulb-light .bulb{
 	background-image: url("../images/bulb-light.svg");
@@ -58,7 +58,7 @@ header {
 
 .author {
 	font-size: 1rem;
-	padding: 5px;
+	padding: 5px 0px;
 	color: gray;
 	display: block;
 }
