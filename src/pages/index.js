@@ -34,6 +34,7 @@ const NewsCards = ({
       return nextReadCounter;
     });
   };
+
   const handleOnCardPrevClick = () => {
     setReadCounter(prevReadCounter => {
       const nextReadCounter = prevReadCounter - 1 < 0 ? 0 : prevReadCounter - 1;
@@ -57,8 +58,28 @@ const NewsCards = ({
 
   const handleOnCardMove = e => {
     const x = e.pageX || e.nativeEvent.touches[0].pageX;
-    setPullDeltaX(x - startX);
+    setPullDeltaX(parseInt(x - startX));
     return false;
+  };
+
+  const handleOnCardMoveStart = e => {
+    setStartX(e.pageX || e.nativeEvent.touches[0].pageX);
+    // $(document).on('mousemove touchmove', function(e) {
+    //   const x = e.pageX || e.originalEvent.touches[0].pageX;
+    //   setPullDeltaX(x - startX);
+    //   if (!pullDeltaX) return false;
+    // });
+
+    // $(document).on('mouseup touchend', function() {
+    //   $(document).off('mousemove touchmove mouseup touchend');
+    //   if (!pullDeltaX) return false; // prevents from rapid click events
+    //   setReadCounter(prevReadCounter => {
+    //     const nextReadCounter = parseInt(prevReadCounter) + 1;
+    //     window.localStorage.setItem('cardsCounter', nextReadCounter);
+    //     return nextReadCounter;
+    //   });
+    //   setPullDeltaX(0);
+    // });
   };
 
   const handleOnCardMoveEnd = e => {
@@ -69,11 +90,9 @@ const NewsCards = ({
       return nextReadCounter;
     });
     setPullDeltaX(0);
+    setStartX(0);
   };
 
-  const handleOnCardMoveStart = e => {
-    setStartX(e.pageX || e.nativeEvent.touches[0].pageX);
-  };
   return (
     <Layout>
       <header>
@@ -93,12 +112,12 @@ const NewsCards = ({
             {articles.length > readCounter ? (
               _.map(articles, article => (
                 <div
-                  onTouchMove={handleOnCardMove}
-                  onMouseMove={handleOnCardMove}
                   onTouchStart={handleOnCardMoveStart}
-                  onMouseUp={handleOnCardMoveStart}
-                  onMouseDown={handleOnCardMoveEnd}
+                  onMouseDown={handleOnCardMoveStart}
+                  onMouseMove={handleOnCardMove}
+                  onTouchMove={handleOnCardMove}
                   onTouchEnd={handleOnCardMoveEnd}
+                  onMouseUp={handleOnCardMoveEnd}
                   key={article.node.id}
                   id={`div-${article.node.id}`}
                   className={`demo__card ${
@@ -121,15 +140,17 @@ const NewsCards = ({
                       <p className="demo__card__we">
                         {article.node.description}
                       </p>
-                      <div className="readmore">
-                        <a href={article.node.url}>
-                          Read More @ {article.node.source.name}
-                        </a>
-                      </div>
+                      {article.node.url && (
+                        <div className="readmore">
+                          <a href={article.node.url}>
+                            Read More @ {article.node.source.name}
+                          </a>
+                        </div>
+                      )}
                     </div>
-                    <div className="demo__card__choice m--reject" />
+                    {/* <div className="demo__card__choice m--reject" />
                     <div className="demo__card__choice m--like" />
-                    <div className="demo__card__drag" />
+                    <div className="demo__card__drag" /> */}
                   </div>
                 </div>
               ))

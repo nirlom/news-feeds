@@ -14,11 +14,11 @@ $(document).ready(function() {
     deg = pullDeltaX / 10;
     $card.css('transform', `translateX(${pullDeltaX}px) rotate(${deg}deg)`);
 
-    const opacity = pullDeltaX / 100;
-    const rejectOpacity = opacity >= 0 ? 0 : Math.abs(opacity);
-    const likeOpacity = opacity <= 0 ? 0 : opacity;
-    $cardReject.css('opacity', rejectOpacity);
-    $cardLike.css('opacity', likeOpacity);
+    // const opacity = pullDeltaX / 100;
+    // const rejectOpacity = opacity >= 0 ? 0 : Math.abs(opacity);
+    // const likeOpacity = opacity <= 0 ? 0 : opacity;
+    // $cardReject.css('opacity', rejectOpacity);
+    // $cardLike.css('opacity', likeOpacity);
   }
 
   function release() {
@@ -63,8 +63,8 @@ $(document).ready(function() {
     if (animating) return;
 
     $card = $(this);
-    $cardReject = $('.demo__card__choice.m--reject', $card);
-    $cardLike = $('.demo__card__choice.m--like', $card);
+    // $cardReject = $('.demo__card__choice.m--reject', $card);
+    // $cardLike = $('.demo__card__choice.m--like', $card);
     const startX = e.pageX || e.originalEvent.touches[0].pageX;
 
     $(document).on('mousemove touchmove', function(e) {

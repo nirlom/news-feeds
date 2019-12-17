@@ -5,7 +5,9 @@
 	margin: 0;
 	padding: 0;
 }
-
+body{
+	overflow: hidden;
+}
 header {
 	width: 100%;
 	padding: 0.2rem;
@@ -129,14 +131,14 @@ header {
 }
 
 .demo__card__name {
-	font-size: 1.5rem;
+	font-size: 1.2rem;
 	font-weight: bold;
 	padding-top: 5px;
 }
 
 .demo__card__we {
-	font-size: 1.3rem;
-	line-height: 2rem;
+	font-size: 1rem;
+	line-height: 1.5rem;
 	overflow: auto;
 	display: contents;
 }
