@@ -22,16 +22,11 @@ const NewsCards = ({
       return window.localStorage.getItem('cardsCounter') || 0;
     }
   });
-  const handleOnCardClick = url => {
-    window.location.href = url;
-  };
 
-  const handleOnCardNextClick = () => {
+  const handleReloadCards = () => {
     setReadCounter(prevReadCounter => {
-      const nextReadCounter =
-        prevReadCounter + 1 > totalCount ? totalCount : prevReadCounter + 1;
-      window.localStorage.setItem('cardsCounter', nextReadCounter);
-      return nextReadCounter;
+      window.localStorage.setItem('cardsCounter', 0);
+      return 0;
     });
   };
 
@@ -136,7 +131,10 @@ const NewsCards = ({
                     </div>
                     <div className="demo__card__news_text">
                       <h5 className="demo__card__name">{article.node.title}</h5>
-                      <span className="author">{`${article.node.author} / ${article.node.publishedAt}`}</span>
+                      <span className="author">{`${article.node.author ||
+                        article.node.source.name} / ${
+                        article.node.publishedAt
+                      }`}</span>
                       <p className="demo__card__we">
                         {article.node.description}
                       </p>
@@ -155,12 +153,19 @@ const NewsCards = ({
                 </div>
               ))
             ) : (
-              <div id="div-thankyou" className="demo__card">
+              <div
+                id="div-thankyou"
+                className="demo__card"
+                onTouchStart={handleReloadCards}
+                onMouseDown={handleReloadCards}
+              >
                 <div className="demo__card__news_text">
                   <h5 className="demo__card__name">
                     Thank you so much for reading all the news
                   </h5>
-                  <p className="demo__card__we">See you tomorrow</p>
+                  <p className="demo__card__we">You are reading to much...</p>
+                  <br />
+                  <p className="demo__card__we">Reloading cards for you...</p>
                 </div>
               </div>
             )}
