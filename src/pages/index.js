@@ -32,7 +32,8 @@ const NewsCards = ({
 
   const handleOnCardPrevClick = () => {
     setReadCounter(prevReadCounter => {
-      const nextReadCounter = prevReadCounter - 1 < 0 ? 0 : prevReadCounter - 1;
+      const nextReadCounter =
+        parseInt(prevReadCounter) - 1 < 0 ? 0 : parseInt(prevReadCounter) - 1;
       window.localStorage.setItem('cardsCounter', nextReadCounter);
       return nextReadCounter;
     });
@@ -53,7 +54,8 @@ const NewsCards = ({
 
   const handleOnCardNextClick = () => {
     setReadCounter(prevReadCounter => {
-      const nextReadCounter = prevReadCounter + 1 < 0 ? 0 : prevReadCounter + 1;
+      const nextReadCounter =
+        parseInt(prevReadCounter) + 1 < 0 ? 0 : parseInt(prevReadCounter) + 1;
       window.localStorage.setItem('cardsCounter', nextReadCounter);
       return nextReadCounter;
     });
