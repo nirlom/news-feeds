@@ -253,3 +253,14 @@ a {
     align-items: center;
     display: flex;
 }
+
+@media (min-width: 468px){
+	body{
+		width: 468px;
+		margin: 0 auto;
+	}
+	header{
+		position: relative;
+		width: auto;
+	}
+}
