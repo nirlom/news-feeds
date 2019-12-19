@@ -51,6 +51,14 @@ const NewsCards = ({
     // }
   };
 
+  const handleOnCardNextClick = () => {
+    setReadCounter(prevReadCounter => {
+      const nextReadCounter = prevReadCounter + 1 < 0 ? 0 : prevReadCounter + 1;
+      window.localStorage.setItem('cardsCounter', nextReadCounter);
+      return nextReadCounter;
+    });
+  };
+
   const handleOnCardMove = e => {
     const x = e.pageX || e.nativeEvent.touches[0].pageX;
     setPullDeltaX(parseInt(x - startX));
@@ -94,7 +102,11 @@ const NewsCards = ({
         <div className="row">
           <div className="icon">
             {/* <div className="share" onClick={handleOnCardNextClick} /> */}
-            <div className="share" onClick={handleOnCardPrevClick} />
+            <div className="backward" onClick={handleOnCardPrevClick} />
+          </div>
+          <div className="icon">
+            {/* <div className="share" onClick={handleOnCardNextClick} /> */}
+            <div className="forward" onClick={handleOnCardNextClick} />
           </div>
           <div className="icon bulb-light">
             <div className="bulb" />
