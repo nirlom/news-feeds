@@ -17,12 +17,16 @@ header {
 }
 
 .bulb,
-.share {
+.backward,
+.forward {
 	height: 25px;
 	width: 25px;
 }
-.share{
-	background-image: url("../images/left-arrow.svg");	
+.backward{
+	background-image: url("../images/back.svg");	
+}
+.forward{
+	background-image: url("../images/forward.svg");	
 }
 .bulb-light .bulb{
 	background-image: url("../images/bulb-light.svg");
@@ -262,5 +266,13 @@ a {
 	header{
 		position: relative;
 		width: auto;
+	}
+	.icon {
+		background: none;
+	}
+	.demo__card {
+		border: 1px solid;
+    	border-radius: 4px;
+    	padding: 1px;
 	}
 }
