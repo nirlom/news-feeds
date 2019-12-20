@@ -106,12 +106,12 @@ const NewsCards = ({
             {/* <div className="share" onClick={handleOnCardNextClick} /> */}
             <div className="backward" onClick={handleOnCardPrevClick} />
           </div>
+          <div className="icon bulb-light">
+            <div className="bulb" />
+          </div>
           <div className="icon">
             {/* <div className="share" onClick={handleOnCardNextClick} /> */}
             <div className="forward" onClick={handleOnCardNextClick} />
-          </div>
-          <div className="icon bulb-light">
-            <div className="bulb" />
           </div>
         </div>
       </header>
