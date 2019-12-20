@@ -12,9 +12,11 @@ const NewsCards = ({
 }) => {
   const [startX, setStartX] = useState(0);
   const [pullDeltaX, setPullDeltaX] = useState(0);
-  const [isDarkModeEnabled, setIsDarkModeEnabled] = useState(() =>
-    window.localStorage.getItem('isDarkModeEnabled')
-  );
+  const [isDarkModeEnabled, setIsDarkModeEnabled] = useState(() => {
+    if (typeof window !== 'undefined' && window) {
+      return window.localStorage.getItem('isDarkModeEnabled');
+    }
+  });
   const [readCounter, setReadCounter] = useState(() => {
     if (typeof window !== 'undefined' && window) {
       window.numOfCards = totalCount;
