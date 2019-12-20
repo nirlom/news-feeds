@@ -3,6 +3,8 @@ import { graphql } from 'gatsby';
 import _ from 'lodash';
 import Layout from '../components/layout';
 
+import nirlomImage from '../static/images/nirlom.png';
+
 const NewsCards = ({
   data: {
     allArticle: { totalCount, edges: articles }
@@ -10,6 +12,9 @@ const NewsCards = ({
 }) => {
   const [startX, setStartX] = useState(0);
   const [pullDeltaX, setPullDeltaX] = useState(0);
+  const [isDarkModeEnabled, setIsDarkModeEnabled] = useState(() =>
+    window.localStorage.getItem('isDarkModeEnabled')
+  );
   const [readCounter, setReadCounter] = useState(() => {
     if (typeof window !== 'undefined' && window) {
       window.numOfCards = totalCount;
@@ -55,7 +60,9 @@ const NewsCards = ({
   const handleOnCardNextClick = () => {
     setReadCounter(prevReadCounter => {
       const nextReadCounter =
-        parseInt(prevReadCounter) + 1 < 0 ? 0 : parseInt(prevReadCounter) + 1;
+        parseInt(prevReadCounter) + 1 >= 100
+          ? 100
+          : parseInt(prevReadCounter) + 1;
       window.localStorage.setItem('cardsCounter', nextReadCounter);
       return nextReadCounter;
     });
@@ -98,6 +105,13 @@ const NewsCards = ({
     setStartX(0);
   };
 
+  const handleEnableDarkMode = () => {
+    setIsDarkModeEnabled(prevIsDarkModeEnabled => {
+      window.localStorage.setItem('isDarkModeEnabled', !prevIsDarkModeEnabled);
+      return !prevIsDarkModeEnabled;
+    });
+  };
+
   return (
     <Layout>
       <header>
@@ -106,12 +120,17 @@ const NewsCards = ({
             {/* <div className="share" onClick={handleOnCardNextClick} /> */}
             <div className="backward" onClick={handleOnCardPrevClick} />
           </div>
+          <div
+            className={`icon bulb-light ${
+              isDarkModeEnabled ? 'bulb-dark' : ''
+            }`}
+            onClick={handleEnableDarkMode}
+          >
+            <div className="bulb" />
+          </div>
           <div className="icon">
             {/* <div className="share" onClick={handleOnCardNextClick} /> */}
             <div className="forward" onClick={handleOnCardNextClick} />
-          </div>
-          <div className="icon bulb-light">
-            <div className="bulb" />
           </div>
         </div>
       </header>
@@ -133,16 +152,26 @@ const NewsCards = ({
                     article.node.id >= articles.length - readCounter
                       ? 'below'
                       : ''
-                  }`}
+                  } ${isDarkModeEnabled ? 'demo__card__dark__mode' : ''}`}
                 >
                   <div>
-                    <div className="demo__card__img">
-                      <img
-                        className="image"
-                        src={article.node.urlToImage}
-                        alt={article.node.title}
-                      />
-                    </div>
+                    {article.node.urlToImage ? (
+                      <div className="demo__card__img">
+                        <img
+                          className="image"
+                          src={article.node.urlToImage}
+                          alt={article.node.title}
+                        />
+                      </div>
+                    ) : (
+                      <div className="demo__card__img">
+                        <img
+                          className="image"
+                          src="https://source.unsplash.com/random/450x250?news"
+                          alt={article.node.title}
+                        />
+                      </div>
+                    )}
                     <div className="demo__card__news_text">
                       <h5 className="demo__card__name">{article.node.title}</h5>
                       <span className="author">{`${article.node.author ||
@@ -206,6 +235,7 @@ export const pageQuery = graphql`
           id
           title
           description
+          content
           url
           urlToImage
           publishedAt(formatString: "DD, MMM YYYY")
