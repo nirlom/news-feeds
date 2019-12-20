@@ -176,12 +176,12 @@ const NewsCards = ({
                     )}
                     <div className="demo__card__news_text">
                       <h5 className="demo__card__name">{article.node.title}</h5>
-                      <span className="author">{`${article.node.author ||
+                      {/* <span className="author">{`${article.node.author ||
                         article.node.source.name} / ${
                         article.node.publishedAt
-                      }`}</span>
+                      }`}</span> */}
                       <p className="demo__card__we">
-                        {article.node.description}
+                        {article.node.description.substring(0, 250)}...
                       </p>
                       {article.node.url && (
                         <div className="readmore">

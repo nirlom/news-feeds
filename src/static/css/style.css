@@ -14,8 +14,10 @@ header {
 	width: 100%;
 	padding: 0.2rem;
 	position: fixed;
-	top: 0px;
+	bottom: 0px;
 	z-index: 10;
+	box-shadow: 10px 10px 10px 10px #cccccc;
+	background: #fff;
 }
 
 .bulb,
@@ -151,11 +153,12 @@ header {
 	font-size: 1.2rem;
 	font-weight: bold;
 	padding-top: 5px;
+	padding-bottom: 5px;
 }
 
 .demo__card__we {
 	font-size: 1.1rem;
-	line-height: 1.5rem;
+	line-height: 1.7rem;
 	overflow: auto;
 	display: contents;
 }
@@ -241,6 +244,7 @@ header {
 .readmore {
 	margin-top: 5px;
 	cursor: pointer;
+	font-size: 12px;
 }
 
 h5 {
@@ -279,6 +283,7 @@ a {
 	header{
 		position: relative;
 		width: auto;
+		box-shadow: none;
 	}
 	.icon {
 		background: none;
