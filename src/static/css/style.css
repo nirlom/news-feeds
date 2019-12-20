@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
 *,
 *:before,
 *:after {
@@ -152,7 +154,7 @@ header {
 }
 
 .demo__card__we {
-	font-size: 1rem;
+	font-size: 1.1rem;
 	line-height: 1.5rem;
 	overflow: auto;
 	display: contents;
@@ -242,13 +244,13 @@ header {
 }
 
 h5 {
-	font-family: pt-sans, sans-serif;
+	font-family: 'Montserrat', sans-serif;
 	font-weight: 700;
 	font-style: normal;
 }
 
 p {
-	font-family: pt-sans, sans-serif;
+	font-family: 'Montserrat', sans-serif;
 
 	font-weight: 400;
 
@@ -257,7 +259,7 @@ p {
 
 a {
 	color: #7b7b7b;
-	font-family: pt-sans, sans-serif;
+	font-family: 'Montserrat', sans-serif;
 
 	font-weight: 400;
 
